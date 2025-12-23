@@ -30,14 +30,14 @@ jobs:
 
       - name: Build Docker image
         run: |
-          IMAGE=ghcr.io/${{ github.repository }}
+          IMAGE=ghcr.io/stratos-linux/stratos-base
           docker build \
             -t $IMAGE:${TAG} \
             -t $IMAGE:latest \
             .
-
+      # ghcr.io/${{ github.repository }}
       - name: Push Docker image
         run: |
-          IMAGE=ghcr.io/${{ github.repository }}
+          IMAGE=ghcr.io/stratos-linux/stratos-base
           docker push $IMAGE:${TAG}
           docker push $IMAGE:latest
