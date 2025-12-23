@@ -6,10 +6,16 @@ on:
       - main
   schedule:
     - cron: "0 0 * * *" # once every 24 hours (UTC)
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+      pull-requests: write
+      repository-projects: write
 
     steps:
       - name: Checkout repository
