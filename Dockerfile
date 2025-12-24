@@ -24,7 +24,7 @@ RUN pacman -Sy --noconfirm && \
 #RUN curl -s "https://archlinux.org/mirrorlist/?country=IN&country=US&country=DE&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 RUN export TMPFILE="/tmp/ratemir" && \ 
     sudo touch "$TMPFILE" && \
-    sudo rate-mirrors --save="$TMPFILE" --allow-root arch --completion=1 --max-delay=43200 --top-mirrors-number-to-retest=10 && \
+    sudo rate-mirrors --save="$TMPFILE" --allow-root arch --completion=1 --max-delay=43200 && \
     sudo mv $TMPFILE /etc/pacman.d/mirrorlist
 
 # Fetch from the updated mirrors
