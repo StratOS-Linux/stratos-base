@@ -19,7 +19,7 @@ RUN sed -i '/^#.*\(VerbosePkgLists\|ILoveCandy\)/s/^#//' /etc/pacman.conf && \
 
 # Fetch additional packages from the StratOS repos
 RUN pacman -Syy --noconfirm && \
-    pacman -S rate-mirrorspython-vdf python-inputs python-steam --noconfirm
+    pacman -S rate-mirrors python-vdf python-inputs python-steam --noconfirm
 
 #RUN curl -s "https://archlinux.org/mirrorlist/?country=IN&country=US&country=DE&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 RUN export TMPFILE="$(mktemp)"; \
