@@ -18,15 +18,17 @@ RUN sed -i '/^#.*\(VerbosePkgLists\|ILoveCandy\)/s/^#//' /etc/pacman.conf && \
     sed -i 's/purge debug/purge !debug/g' /etc/makepkg.conf
 
 # Fetch additional packages from the StratOS repos
-RUN pacman -Syy --noconfirm && \
+RUN pacman -Sy --noconfirm && \
     pacman -S rate-mirrors python-vdf python-inputs python-steam --noconfirm
 
 #RUN curl -s "https://archlinux.org/mirrorlist/?country=IN&country=US&country=DE&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 RUN export TMPFILE="/tmp/ratemir" && \ 
     sudo touch "$TMPFILE" && \
-    sudo rate-mirrors --save="$TMPFILE" --allow-root arch --completion=1 --max-delay=43200 && \
-    sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup && \
+    sudo rate-mirrors --save="$TMPFILE" --allow-root arch --completion=1 --max-delay=43200 --top-mirrors-to-test=10 && \
     sudo mv $TMPFILE /etc/pacman.d/mirrorlist
+
+# Fetch from the updated mirrors
+RUN pacman -Syy --noconfirm
 
 # Add third-party keys
 RUN pacman-key --keyserver hkps://keyserver.ubuntu.com --recv-keys \
